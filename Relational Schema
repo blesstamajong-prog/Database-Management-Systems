@@ -1,0 +1,54 @@
+USER(
+    user_id PK,
+    name,
+    phone_number,
+    email,
+    created_at
+)
+
+VEHICLE(
+    vehicle_id PK,
+    vehicle_type,
+    registration_number,
+    model,
+    capacity
+)
+
+CAPTAIN(
+    captain_id PK,
+    name,
+    phone_number,
+    vehicle_id FK → VEHICLE(vehicle_id),
+    rating
+)
+
+RIDE(
+    ride_id PK,
+    user_id FK → USER(user_id),
+    captain_id FK → CAPTAIN(captain_id),
+    pickup_location,
+    drop_location,
+    fare,
+    status
+)
+
+PAYMENT(
+    payment_id PK,
+    ride_id FK → RIDE(ride_id),
+    amount,
+    payment_method,
+    payment_status,
+    payment_time
+)
+
+ZONE(
+    zone_id PK,
+    zone_name,
+    city
+)
+
+CAPTAIN_ZONE(
+    captain_id FK → CAPTAIN(captain_id),
+    zone_id FK → ZONE(zone_id),
+    PRIMARY KEY(captain_id, zone_id)
+)
